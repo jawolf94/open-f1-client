@@ -1,4 +1,5 @@
 ﻿using OpenF1.Data;
+using OpenF1.Queries.Drivers;
 using OpenF1.Queries.Meetings;
 using OpenF1.Queries.Sessions;
 
@@ -18,4 +19,9 @@ public interface IOpenF1Client
     /// Gets all sessions matching the <seealso cref="ISessionQuery"/> provided.
     /// </summary>
     Task<IReadOnlyList<Session>> GetSessions(ISessionQuery sessionQuery);
+
+    /// <summary>
+    /// Gets all drivers matching the <seeaslo cref="IDriverQuery"/> provided.
+    /// </summary>
+    Task<IReadOnlyList<Driver>> GetDrivers(IDriverQuery driverQuery);
 }

@@ -3,7 +3,7 @@
 namespace OpenF1.Data;
 
 /// <summary>
-/// Represents a distinct period of activity during a Meeting.
+/// Represents a distinct period of activity during a <seealso cref="Meeting"/>.
 /// </summary>
 public class Session
 {

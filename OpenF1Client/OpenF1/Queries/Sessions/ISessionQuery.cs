@@ -5,5 +5,8 @@
 /// </summary>
 public interface ISessionQuery
 {
+    /// <summary>
+    /// The session query string.
+    /// </summary>
     public string SessionQueryString { get; }
 }
