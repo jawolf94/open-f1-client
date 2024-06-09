@@ -10,11 +10,15 @@ internal static class Keys
     public const string CountryCode = "country_code";
     public const string CountryKey = "country_key";
     public const string CountryName = "country_name";
+    public const string DateEnd = "date_end";
     public const string DateStart = "date_start";
     public const string GmtOffset = "gmt_offset";
     public const string Location = "location";
     public const string MeetingKey = "meeting_key";
     public const string MeetingName = "meeting_name";
     public const string MeetingOfficialName = "meeting_official_name";
+    public const string SessionKey = "session_key";
+    public const string SessionName = "session_name";
+    public const string SessionType = "session_type";
     public const string Year = "year";
 }

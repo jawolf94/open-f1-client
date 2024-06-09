@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 using OpenF1.Data;
 using OpenF1.Queries.Meetings;
+using OpenF1.Queries.Sessions;
 
 namespace OpenF1.Client;
 
@@ -30,10 +31,30 @@ public class OpenF1HttpClient : IOpenF1Client
     /// <inheritdoc />
     public async Task<IReadOnlyList<Meeting>> GetMeetings(IMeetingQuery meetingQuery)
     {
-        var requestResult = await _httpClient.GetAsync($"meetings?{meetingQuery.MeetingQueryString}");
-        requestResult.EnsureSuccessStatusCode();
+        var result = await GetData($"meetings?{meetingQuery.MeetingQueryString}");
+        result.EnsureSuccessStatusCode();
 
-        var meetings = await requestResult.Content.ReadFromJsonAsync<Meeting[]>(_jsonSerializerOptions);
-        return meetings?.ToList() ?? [];
+        return await DeserializeResponse<Meeting>(result);
+    }
+
+    /// <inheritdoc />
+    public async Task<IReadOnlyList<Session>> GetSessions(ISessionQuery sessionQuery)
+    {
+        var result = await GetData($"sessions?{sessionQuery.SessionQueryString}");
+        result.EnsureSuccessStatusCode();
+
+        return await DeserializeResponse<Session>(result);
+    }
+
+    private async Task<HttpResponseMessage> GetData(string relativeUrlString) 
+    {
+        var requestResult = await _httpClient.GetAsync(relativeUrlString);
+        return requestResult;
+    }
+
+    private async Task<List<TResult>> DeserializeResponse<TResult>(HttpResponseMessage response) 
+    {
+        var result = await response.Content.ReadFromJsonAsync<TResult[]>(_jsonSerializerOptions);
+        return result?.ToList() ?? [];
     }
 }
